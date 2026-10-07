@@ -1,0 +1,22 @@
+[package]
+name = "inline_kernels"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+license = "MIT"
+authors = ["George Pearse"]
+description = "Hot-loop kernels written with inline assembly, exposed as a plain C ABI"
+publish = false
+
+[lib]
+# rlib  -> consumed by the rustimport/pyo3 wrapper (kernels_py.rs) as a normal crate
+# cdylib -> target/release/libinline_kernels.so, loaded from Python with ctypes (no pyo3)
+crate-type = ["rlib", "cdylib"]
+
+[dependencies]
+
+[profile.release]
+# No target-cpu=native anywhere: baseline x86_64 (SSE2) so the binary is portable.
+# AVX is selected at runtime with is_x86_feature_detected!, not at compile time.
+opt-level = 3
+debug = 1

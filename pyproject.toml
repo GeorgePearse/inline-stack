@@ -1,0 +1,12 @@
+[project]
+name = "inline-stack"
+version = "0.1.0"
+description = "Assembly inside Rust inside Python, all via inline mechanisms"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "George Pearse" }]
+dependencies = [
+    "numpy>=2.0",
+    "rustimport>=1.5",
+]
